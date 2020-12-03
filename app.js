@@ -10,7 +10,39 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const burrito = [];
 
+const collectInputs = async () => {
+    const { again, ...answers } = await inquirer.prompt(quesitons);
+    if (answers.employeeType === "Manager") {
+        let emp = new Manager(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.officeNumber
+        )
+        burrito.push(emp);
+    }
+    if (answers.employeeType === "Engineer"){
+        let emp = new Engineer(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.officeNumber
+        );
+        burrito.push(emp)
+    }
+    if(answers.employeeType === "Intern"){
+        let emp = new Intern(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.officeNumber,
+        )
+        burrito.push(emp)
+    }
+    return again ? collectInputs() : burrito
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
