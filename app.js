@@ -10,39 +10,84 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const burrito = [];
+const employeeConstructors = {
+    Engineer: function(answers){
+        return new Engineer(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.github
 
-const collectInputs = async () => {
-    const { again, ...answers } = await inquirer.prompt(quesitons);
-    if (answers.employeeType === "Manager") {
-        let emp = new Manager(
-            answers.name,
-            answers.id,
-            answers.email,
-            answers.officeNumber
         )
-        burrito.push(emp);
-    }
-    if (answers.employeeType === "Engineer"){
-        let emp = new Engineer(
+    },
+    Manager: function(answers){
+        return new Manager (
             answers.name,
             answers.id,
             answers.email,
-            answers.officeNumber
-        );
-        burrito.push(emp)
-    }
-    if(answers.employeeType === "Intern"){
-        let emp = new Intern(
-            answers.name,
-            answers.id,
-            answers.email,
-            answers.officeNumber,
+            answer.officeNumber
         )
-        burrito.push(emp)
+    },
+    Intern: function(answers){
+        return new Intern (
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.school
+        )
     }
-    return again ? collectInputs() : burrito
 }
+
+const employeeQuestions = {
+    Engineer: [
+        
+        
+    ],
+    Manager: [],
+    Intern: [],
+};
+
+const employees = [];
+
+function init(){
+    console.log("init")
+    inquirer.prompt([{
+        type: "list",
+        message: "What is the role?",
+        name: "employeeType",
+        choices: [
+            {
+                name: "Engineer",
+                value: "Engineer",
+                short: "Engineer"
+            },
+            {
+                name: "Manager",
+                value: "Manager",
+                short: "Manager"
+
+            },
+            {
+                name: "Intern",
+                value: "Intern",
+                short: "Intern"
+
+            }
+        ]
+    }])
+        .then(answer => {
+            console.log(answer);
+            inquirer.prompt(employeeQuestions[answer.employeeType]).then(answers => {
+                const newEmployee = employeeConstructors[answer.employeeType](answers)
+            })
+
+        })
+
+}
+init()
+
+
+//What is your role
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
