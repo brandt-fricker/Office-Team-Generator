@@ -40,11 +40,62 @@ const employeeConstructors = {
 
 const employeeQuestions = {
     Engineer: [
-        
-        
+        {
+        type: "input",
+        message: "What is your name? ",
+        name: "engineerName"
+    },
+    {
+        type: "input",
+        message: "What is your email? ",
+        name: "engineerEmail"
+
+    },
+    {
+        type: "input",
+        message: "What is your GitHub username?",
+        name: "engineerGithubUsername"
+
+    }
     ],
-    Manager: [],
-    Intern: [],
+    Manager: [
+        {
+            type: "input",
+            message: "What is your name? ",
+            name: "managerName"
+        },
+        {
+            type: "input",
+            message: "What is your email? ",
+            name: "managerEmail"
+    
+        },
+        {
+            type: "input",
+            message: "What is office phone number?",
+            name: "managerPhoneNumber"
+    
+        }
+    ],
+    Intern: [
+        {
+            type: "input",
+            message: "What is your name? ",
+            name: "internName"
+        },
+        {
+            type: "input",
+            message: "What is your email? ",
+            name: "internEmail"
+    
+        },
+        {
+            type: "input",
+            message: "What school do you attend?",
+            name: "internSchool"
+    
+        }
+    ],
 };
 
 const employees = [];
