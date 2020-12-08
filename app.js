@@ -160,9 +160,8 @@ function init(){
                        name: "domore"
                     }]).then(answer => {
                       
-                      let addStaff = answer
-                      console.log(addStaff)
-                      if(addStaff){
+                      
+                      if(answer.domore){
                           console.log("Adding more staff...")
                           init();
                       }else{
