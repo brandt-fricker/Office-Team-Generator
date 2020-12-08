@@ -8,8 +8,14 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
+var render = require("./lib/htmlRenderer");
 
+function outputTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(employees), "utf-8");
+}
 
 const employeeConstructors = {
     Engineer: function(answers){
@@ -119,7 +125,7 @@ const employees = [];
 
 function init(){
     console.log("init")
-    //while (true) {
+    
         inquirer.prompt([{
             type: "list",
             message: "What is the role?",
@@ -157,31 +163,28 @@ function init(){
                     inquirer.prompt([{
                        type: "confirm",
                        message: "Do you have more staff to add?",
-                       name: "domore"
+                       name: "addMore"
                     }]).then(answer => {
                       
                       
-                      if(answer.domore){
+                      if(answer.addMore){
                           console.log("Adding more staff...")
                           init();
                       }else{
-                          // need to render employees?
-                          return;
+                          // need to render employees
+                         
+                         outputTeam()
                       }
                         
                     })
                 }
                 
-                // .then(answer => {
-                //     console.log(answer) 
-                //     if (domore === false) 
-                //     return;
-                // })
+               
             })
 
         })
 
-    //}
+    
 
 }
 init();
