@@ -10,6 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+
 const employeeConstructors = {
     Engineer: function(answers){
         return new Engineer(
@@ -17,7 +18,6 @@ const employeeConstructors = {
             answers.id,
             answers.email,
             answers.github
-
         )
     },
     Manager: function(answers){
@@ -25,7 +25,7 @@ const employeeConstructors = {
             answers.name,
             answers.id,
             answers.email,
-            answer.officeNumber
+            answers.officeNumber
         )
     },
     Intern: function(answers){
@@ -43,18 +43,23 @@ const employeeQuestions = {
         {
         type: "input",
         message: "What is your name? ",
-        name: "engineerName"
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your ID?",
+        name: "id"
     },
     {
         type: "input",
         message: "What is your email? ",
-        name: "engineerEmail"
+        name: "email"
 
     },
     {
         type: "input",
         message: "What is your GitHub username?",
-        name: "engineerGithubUsername"
+        name: "github"
 
     }
     ],
@@ -62,18 +67,23 @@ const employeeQuestions = {
         {
             type: "input",
             message: "What is your name? ",
-            name: "managerName"
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is your ID?",
+            name: "id"
         },
         {
             type: "input",
             message: "What is your email? ",
-            name: "managerEmail"
+            name: "email"
     
         },
         {
             type: "input",
             message: "What is office phone number?",
-            name: "managerPhoneNumber"
+            name: "officeNumber"
     
         }
     ],
@@ -81,61 +91,85 @@ const employeeQuestions = {
         {
             type: "input",
             message: "What is your name? ",
-            name: "internName"
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is your ID?",
+            name: "id"
         },
         {
             type: "input",
             message: "What is your email? ",
-            name: "internEmail"
+            name: "email"
     
         },
         {
             type: "input",
             message: "What school do you attend?",
-            name: "internSchool"
+            name: "school"
     
         }
     ],
+      
+   
 };
 
 const employees = [];
 
 function init(){
     console.log("init")
-    inquirer.prompt([{
-        type: "list",
-        message: "What is the role?",
-        name: "employeeType",
-        choices: [
-            {
-                name: "Engineer",
-                value: "Engineer",
-                short: "Engineer"
-            },
-            {
-                name: "Manager",
-                value: "Manager",
-                short: "Manager"
+    //while (true) {
+        inquirer.prompt([{
+            type: "list",
+            message: "What is the role?",
+            name: "employeeType",
+            choices: [
+                {
+                    name: "Engineer",
+                    value: "Engineer",
+                    short: "Engineer"
+                },
+                {
+                    name: "Manager",
+                    value: "Manager",
+                    short: "Manager"
 
-            },
-            {
-                name: "Intern",
-                value: "Intern",
-                short: "Intern"
+                },
+                {
+                    name: "Intern",
+                    value: "Intern",
+                    short: "Intern"
 
-            }
-        ]
-    }])
+                }
+            ]
+        }])
         .then(answer => {
             console.log(answer);
-            inquirer.prompt(employeeQuestions[answer.employeeType]).then(answers => {
+            inquirer.prompt(employeeQuestions[answer.employeeType])
+            .then(answers => {
                 const newEmployee = employeeConstructors[answer.employeeType](answers)
+                employees.push(newEmployee);
+                console.log(employees)
+                // inquirer.prompt([{
+                //     type: "confirm",
+                //     message: "Do you have more people to add?",
+                //     name: "domore"
+                // }])
+                // .then(answer => {
+                //     console.log(answer) 
+                //     if (domore === false) 
+                //     return;
+                // })
             })
 
         })
 
+    //}
+
 }
-init()
+init();
+
 
 
 //What is your role
