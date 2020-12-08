@@ -165,6 +165,7 @@ function init(){
                           console.log("Adding more staff...")
                           init();
                       }else{
+                          // need to render employees?
                           return;
                       }
                         
