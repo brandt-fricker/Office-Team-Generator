@@ -141,7 +141,9 @@ function init(){
                     value: "Intern",
                     short: "Intern"
 
-                }
+                },
+               
+
             ]
         }])
         .then(answer => {
@@ -150,12 +152,26 @@ function init(){
             .then(answers => {
                 const newEmployee = employeeConstructors[answer.employeeType](answers)
                 employees.push(newEmployee);
-                console.log(employees)
-                // inquirer.prompt([{
-                //     type: "confirm",
-                //     message: "Do you have more people to add?",
-                //     name: "domore"
-                // }])
+                if(employees.length >= 1){
+
+                    inquirer.prompt([{
+                       type: "confirm",
+                       message: "Do you have more staff to add?",
+                       name: "domore"
+                    }]).then(answer => {
+                      
+                      let addStaff = answer
+                      console.log(addStaff)
+                      if(addStaff){
+                          console.log("Adding more staff...")
+                          init();
+                      }else{
+                          return;
+                      }
+                        
+                    })
+                }
+                
                 // .then(answer => {
                 //     console.log(answer) 
                 //     if (domore === false) 
