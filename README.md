@@ -4,9 +4,10 @@
 
 This Office Team Generator will take a users input and generate an HTML webpage that displays summaries for each person. The input will vary depending on the role of the employee you wish to add to your office team.
 
-## Office Team Generator in Aciton!
-
-
+### Office Team Generator in Aciton!
+![Running App](readmeIMGs/RunningApp.gif)
+### Output
+![Output Display of App](readmeIMGs/OfficeTeamIMG.png)
 ## Installation
 
 <p>Run:</p>
